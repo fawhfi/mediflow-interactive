@@ -29,6 +29,10 @@ button:focus-visible,a:focus-visible,canvas:focus-visible{outline:3px solid #147
 .hud button[aria-pressed=true]{background:var(--accent);color:white}
 .zoom{position:absolute;display:flex;gap:5px;right:14px;bottom:14px}
 .zoom button{font-size:1.1rem;width:35px;padding:2px 0}
+.hotspots{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hotspot{position:absolute;transform:translate(-50%,-50%);pointer-events:auto;min-width:28px;min-height:28px;padding:2px 7px;border:1px solid #527769;border-radius:16px;background:#f9faf5;color:#174c40;font-size:.76rem;font-weight:700;white-space:nowrap;box-shadow:0 1px 5px #203d3b30}
+.hotspot:hover,.hotspot:focus-visible,.hotspot[aria-current=true]{background:var(--accent);color:#fff}
+.hotspot[aria-current=true]{box-shadow:0 0 0 3px #246e5480}
 #loading{position:absolute;inset:45% 12% auto;text-align:center;color:#1b5143;pointer-events:none}
 .views{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--edge)}
 .views button{font-size:.9rem;font-weight:700;padding:11px 4px;border:0;border-bottom:3px solid transparent;background:transparent}
@@ -63,7 +67,8 @@ output{font:1.55rem Bahnschrift,sans-serif}
 <div class="dashboard">
 <section class="viewer" aria-label="互動 3D 機件">
 <div class="stage" id="stage">
-<div class="hud"><span>拖曳旋轉 · 滾輪或雙指縮放</span><button id="cover" type="button" aria-pressed="false" disabled>隱藏透明護罩</button></div>
+<div class="hotspots" id="hotspots" aria-label="可點擊機件"></div>
+<div class="hud"><span>點機件操作 · 拖曳旋轉</span><button id="cover" type="button" aria-pressed="false" disabled>隱藏透明護罩</button></div>
 <div class="zoom"><button id="minus" type="button" aria-label="縮小">−</button><button id="plus" type="button" aria-label="放大">+</button></div>
 <p id="loading" role="status">正在載入 3D 模型…</p>
 </div>
@@ -73,7 +78,7 @@ output{font:1.55rem Bahnschrift,sans-serif}
 <button data-view="scan" aria-pressed="false" type="button">光學檢測</button>
 <button data-view="tray" aria-pressed="false" type="button">回藥與取藥</button>
 </nav>
-<div class="caption" id="detail">可從各個角度查看機身、透明回流管和下方回藥斜槽。</div>
+<div class="caption" id="detail" role="status">點轉盤、檢測室、出藥口、取藥碟或抽屜操作。</div>
 </section>
 <aside class="panel" aria-label="操作面板">
 <div class="panel-head"><h2>操作面板</h2><span id="status">載入中</span></div>
